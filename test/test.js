@@ -83,7 +83,7 @@ describe('/schedules', () => {
 describe('/schedules/:scheduleId/users/:userId/candidates/:candidateId', () => {
   before(() => {
     passportStub.install(app);
-    passportStub.login({ id: 0, username: 'testuser' });
+    passportStub.login({ id: '0', username: 'testuser' });
   });
 
   after(() => {
@@ -92,7 +92,7 @@ describe('/schedules/:scheduleId/users/:userId/candidates/:candidateId', () => {
   });
 
   it('出欠が更新できる', (done) => {
-    User.upsert({ userId: 0, username: 'testuser' }).then(() => {
+    User.upsert({ userId: '0', username: 'testuser' }).then(() => {
       request(app)
         .post('/schedules')
         .send({ scheduleName: 'テスト出欠更新予定1', memo: 'テスト出欠更新メモ1', candidates: 'テスト出欠更新候補1' })
@@ -104,7 +104,7 @@ describe('/schedules/:scheduleId/users/:userId/candidates/:candidateId', () => {
           }).then((candidate) => {
             // 更新がされることをテスト
             request(app)
-              .post(`/schedules/${scheduleId}/users/${0}/candidates/${candidate.candidateId}`)
+              .post(`/schedules/${scheduleId}/users/${'0'}/candidates/${candidate.candidateId}`)
               .send({ availability: 2 }) // 出席に更新
               .expect('{"status":"OK","availability":2}')
               .end((err, res) => {
@@ -125,7 +125,7 @@ describe('/schedules/:scheduleId/users/:userId/candidates/:candidateId', () => {
 describe('/schedules/:scheduleId/users/:userId/comments', () => {
   before(() => {
     passportStub.install(app);
-    passportStub.login({ id: 0, username: 'testuser' });
+    passportStub.login({ id: '0', username: 'testuser' });
   });
 
   after(() => {
@@ -134,7 +134,7 @@ describe('/schedules/:scheduleId/users/:userId/comments', () => {
   });
 
   it('コメントが更新できる', (done) => {
-    User.upsert({ userId: 0, username: 'testuser' }).then(() => {
+    User.upsert({ userId: '0', username: 'testuser' }).then(() => {
       request(app)
         .post('/schedules')
         .send({ scheduleName: 'テストコメント更新予定1', memo: 'テストコメント更新メモ1', candidates: 'テストコメント更新候補1' })
@@ -143,7 +143,7 @@ describe('/schedules/:scheduleId/users/:userId/comments', () => {
           const scheduleId = createdSchedulePath.split('/schedules/')[1];
           // 更新がされることをテスト
           request(app)
-            .post(`/schedules/${scheduleId}/users/${0}/comments`)
+            .post(`/schedules/${scheduleId}/users/${'0'}/comments`)
             .send({ comment: 'testcomment' })
             .expect('{"status":"OK","comment":"testcomment"}')
             .end((err, res) => {

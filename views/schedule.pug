@@ -4,7 +4,7 @@ block content
   h4 #{schedule.scheduleName}
   p(style="white-space:pre;") #{schedule.memo}
   p 作成者: #{schedule.user.username}
-  - var isMine = parseInt(user.id) === schedule.user.userId
+  - var isMine = user.id === schedule.user.userId
   if isMine
     div
       a(href=`/schedules/${schedule.scheduleId}/edit`) この予定を編集する
