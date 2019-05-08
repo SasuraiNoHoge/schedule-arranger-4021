@@ -100,10 +100,11 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.availability-toggle-button').eac
   button.click(function () {
     var scheduleId = button.data('schedule-id');
     var userId = button.data('user-id');
+    var provider = button.data('user-provider');
     var candidateId = button.data('candidate-id');
     var availability = parseInt(button.data('availability'));
     var nextAvailability = (availability + 1) % 3;
-    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/schedules/".concat(scheduleId, "/users/").concat(userId, "/candidates/").concat(candidateId), {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/schedules/".concat(scheduleId, "/users/").concat(userId, "/").concat(provider, "/candidates/").concat(candidateId), {
       availability: nextAvailability
     }, function (data) {
       button.data('availability', data.availability);
@@ -116,10 +117,11 @@ var buttonSelfComment = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#self-com
 buttonSelfComment.click(function () {
   var scheduleId = buttonSelfComment.data('schedule-id');
   var userId = buttonSelfComment.data('user-id');
+  var provider = buttonSelfComment.data('user-provider');
   var comment = prompt('コメントを255文字以内で入力してください。');
 
   if (comment) {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/schedules/".concat(scheduleId, "/users/").concat(userId, "/comments"), {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/schedules/".concat(scheduleId, "/users/").concat(userId, "/").concat(provider, "/comments"), {
       comment: comment
     }, function (data) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#self-comment').text(data.comment);
